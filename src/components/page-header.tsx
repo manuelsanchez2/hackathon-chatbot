@@ -8,7 +8,7 @@ import {
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
-import { Folder } from "lucide-react"
+import { Bot, Folder } from "lucide-react"
 
 const PageHeader = () => {
   return (
@@ -29,11 +29,11 @@ const PageHeader = () => {
           </Link>
           <div>
             <SignedOut>
-              <SignInButton>
-                <Button className="bg-black">Sign In</Button>
-              </SignInButton>
+              {/* <SignInButton>
+                <Button className="bg-black">Log In</Button>
+              </SignInButton> */}
               <SignUpButton>
-                <Button className="bg-black ml-2">Sign Up</Button>
+                <Button className="bg-black ml-2">Log in</Button>
               </SignUpButton>
             </SignedOut>
             <SignedIn>
@@ -42,7 +42,7 @@ const PageHeader = () => {
                   href="/dashboard"
                   className="flex items-center text-zinc-600 hover:text-zinc-900"
                 >
-                  <Folder className="mr-2 h-4 w-4" />
+                  <Bot className="mr-2 h-4 w-4" />
                   <span>Chatbots</span>
                 </Link>
 

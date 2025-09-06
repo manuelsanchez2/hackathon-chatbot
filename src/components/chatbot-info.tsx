@@ -2,9 +2,11 @@
 
 import { Chatbot } from "@/db/schema"
 import { useState } from "react"
-import { Edit2, X } from "lucide-react"
+import { Edit2, Trash2Icon, X } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { updateChatbot } from "@/actions/updateChatbot"
+import { deleteChatbot } from "@/actions/deleteChatbot"
+import { toast } from "sonner"
 
 function ChatbotInfo({ chatbot }: { chatbot: Chatbot }) {
   const [projectName, setProjectName] = useState(chatbot.name || "")
@@ -24,8 +26,21 @@ function ChatbotInfo({ chatbot }: { chatbot: Chatbot }) {
         description: projectDescription,
         url: url,
       })
+      toast.success("Chatbot updated successfully!")
     } catch (error) {
       console.log("Error updating chatbot:", error)
+    }
+  }
+
+  const handleDeleteChatbot = async (id: string) => {
+    if (!confirm("Are you sure you want to delete this chatbot?")) {
+      return
+    }
+
+    try {
+      await deleteChatbot(id)
+    } catch (error) {
+      console.log("Error deleting chatbot:", error)
     }
   }
 
@@ -37,9 +52,17 @@ function ChatbotInfo({ chatbot }: { chatbot: Chatbot }) {
           type="button"
           className="text-gray-500 hover:text-gray-700 px-2 py-1 border border-zinc-800  hover:bg-gray-100 cursor-pointer"
           onClick={() => setEditing(!editing)}
-          aria-label="Edit description"
+          aria-label="Edit chatbot information"
         >
           {editing ? <X size={18} /> : <Edit2 size={18} />}
+        </button>
+        <button
+          type="button"
+          className="text-gray-500 hover:text-gray-700 px-2 py-1 border border-zinc-800  hover:bg-gray-100 cursor-pointer"
+          onClick={() => handleDeleteChatbot(String(chatbot.id))}
+          aria-label="Delete chatbot"
+        >
+          <Trash2Icon size={18} />
         </button>
       </div>
       {/* name  */}

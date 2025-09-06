@@ -20,5 +20,5 @@ export async function createChatbot(formData: FormData) {
     .values(chatbot)
     .returning({ insertedId: chatbots.id })
 
-  redirect(`/chatbots/${newChatbot.insertedId}/instructions`)
+  redirect(`/chatbots/${newChatbot.insertedId}`)
 }

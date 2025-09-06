@@ -28,7 +28,7 @@ export default async function Page({
         className="flex items-center text-zinc-700 mb-5 w-fit px-2 py-1 rounded bg-gray-100 hover:bg-gray-200 transition border border-black text-sm"
       >
         <ChevronLeft className="h-5 w-5 mr-1" />
-        <span>Back to projects</span>
+        <span>Back to chatbots</span>
       </Link>
       {/* Info about the chatbot */}
       <div className="flex justify-between items-start">

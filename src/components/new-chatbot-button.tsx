@@ -19,7 +19,7 @@ const NewChatbotButton = () => {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button className="rounded-full">
+        <Button className="rounded-full cursor-pointer">
           <Plus className="w-4 h-4" />
         </Button>
       </DialogTrigger>
