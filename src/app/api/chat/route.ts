@@ -1,15 +1,16 @@
-import { streamText, UIMessage, convertToModelMessages } from 'ai';
+import { streamText, UIMessage, convertToModelMessages } from "ai";
 
 // Allow streaming responses up to 300 seconds (5 minutes) to match Vercel project settings
 export const maxDuration = 300;
 
 export async function POST(req: Request) {
-  const { messages }: { messages: UIMessage[] } =
-    await req.json();
-
+  const { messages, ...rest }: { messages: UIMessage[] } = await req.json();
+  const description = req.headers.get("description");
+  
   const result = streamText({
-    model: 'gpt-5',
+    model: "gpt-5",
     messages: convertToModelMessages(messages),
+    system: `You are an assistant that uses the following description: ${description}`,
   });
 
   return result.toUIMessageStreamResponse();

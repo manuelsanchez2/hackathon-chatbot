@@ -19,7 +19,7 @@ import { Button } from "../ui/button";
 import clsx from "clsx";
 import { MessageCircle, X } from "lucide-react";
 
-function Chat() {
+function Chat({ description = "Be a generalist LLM" }: { description: string }) {
   const { messages, sendMessage } = useChat();
   const [input, setInput] = useState("");
 
@@ -88,7 +88,7 @@ function Chat() {
             onSubmit={(e) => {
               e.preventDefault();
               if (!input) return;
-              sendMessage({ text: input });
+              sendMessage({ text: input }, { headers: { description } });
               setInput("");
             }}
             className="mt-4 relative"
