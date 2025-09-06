@@ -17,6 +17,7 @@ import {
 } from "../ai-elements/prompt-input";
 import { Button } from "../ui/button";
 import clsx from "clsx";
+import { MessageCircle, X } from "lucide-react";
 
 function Chat() {
   const { messages, sendMessage } = useChat();
@@ -26,10 +27,26 @@ function Chat() {
 
   return (
     <div className="fixed bottom-4 right-4 bottom h-96 flex items-end w-96 justify-end">
-      <Button className={clsx("z-50", toggle && "hidden")} onClick={() => setToggle((prev) => !prev)}>chat</Button>
-      <div className={clsx("relative border-[1px] p-2 rounded-lg", toggle ? "block" : "hidden")}>
-        <Button className="absolute top-2 right-2 z-50" onClick={() => setToggle((prev) => !prev)}>x</Button>
-        <div className="flex-1 overflow-hidden">
+      <Button
+        className={clsx("z-50", toggle && "hidden")}
+        onClick={() => setToggle((prev) => !prev)}
+      >
+        <MessageCircle />
+      </Button>
+      <div
+        className={clsx(
+          "relative border-[1px] p-2 rounded-lg pt-14 w-[450px] h-96",
+          toggle ? "block" : "hidden"
+        )}
+      >
+        <Button
+          variant="ghost"
+          className="absolute top-2 right-2 z-50"
+          onClick={() => setToggle((prev) => !prev)}
+        >
+          <X />
+        </Button>
+        <div className="flex h-full flex-col flex-1 overflow-hidden w-full">
           <Conversation className="h-full">
             <ConversationContent className="px-6 py-4">
               {messages.length === 0 ? (
@@ -70,6 +87,7 @@ function Chat() {
           <PromptInput
             onSubmit={(e) => {
               e.preventDefault();
+              if (!input) return;
               sendMessage({ text: input });
               setInput("");
             }}
