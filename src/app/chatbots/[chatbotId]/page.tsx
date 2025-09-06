@@ -1,24 +1,25 @@
-import { db } from "@/db"
-import { eq } from "drizzle-orm"
-import { chatbots as dbChatbots } from "@/db/schema"
-import Link from "next/link"
-import { Globe, ChevronLeft, Code } from "lucide-react"
-import ChatbotInfo from "@/components/chatbot-info"
+import { db } from "@/db";
+import { eq } from "drizzle-orm";
+import { chatbots as dbChatbots } from "@/db/schema";
+import Link from "next/link";
+import { Globe, ChevronLeft, Code } from "lucide-react";
+import ChatbotInfo from "@/components/chatbot-info";
+import Chat from "@/components/chat/Chat";
 
 export default async function Page({
   params,
 }: {
-  params: Promise<{ chatbotId: string }>
+  params: Promise<{ chatbotId: string }>;
 }) {
-  const { chatbotId } = await params
+  const { chatbotId } = await params;
 
-  if (!chatbotId) return <div>Invalid Chatbot ID</div>
+  if (!chatbotId) return <div>Invalid Chatbot ID</div>;
 
   const chatbots = await db.query.chatbots.findMany({
     where: eq(dbChatbots.id, parseInt(chatbotId)),
-  })
+  });
 
-  const chatbot = chatbots[0]
+  const chatbot = chatbots[0];
 
   return (
     <div className="max-w-5xl mx-auto w-full px-5 pt-5">
@@ -55,6 +56,7 @@ export default async function Page({
       {/* <div>
         <Table data={project.feedbacks} />
       </div> */}
+      <Chat description={chatbot.description} />
     </div>
-  )
+  );
 }

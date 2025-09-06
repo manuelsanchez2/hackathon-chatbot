@@ -4,7 +4,7 @@ import { streamText, UIMessage, convertToModelMessages } from "ai";
 export const maxDuration = 300;
 
 export async function POST(req: Request) {
-  const { messages, ...rest }: { messages: UIMessage[] } = await req.json();
+  const { messages }: { messages: UIMessage[] } = await req.json();
   const description = req.headers.get("description");
   
   const result = streamText({
