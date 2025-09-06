@@ -7,7 +7,7 @@ const SubmitButton = () => {
   const { pending } = useFormStatus()
 
   return (
-    <Button type="submit">
+    <Button className="cursor-pointer" type="submit">
       {pending ? (
         <>
           <Loader2 className="mr-2 h-4 w-4 animate-spin" />

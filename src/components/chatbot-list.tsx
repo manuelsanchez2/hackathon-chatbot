@@ -28,7 +28,7 @@ const ChatbotList = (props: Props) => {
               </CardHeader>
               <CardFooter>
                 <Link href={`/chatbots/${chatbot.id}`}>
-                  <Button>View Chatbot</Button>
+                  <Button className="cursor-pointer">View Chatbot</Button>
                 </Link>
               </CardFooter>
             </Card>
