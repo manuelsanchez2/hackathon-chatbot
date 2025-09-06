@@ -1,7 +1,30 @@
-export default function Page() {
+import { db } from "@/db"
+import { chatbots } from "@/db/schema"
+import { eq } from "drizzle-orm"
+import { auth } from "@clerk/nextjs/server"
+import ChatbotList from "@/components/chatbot-list"
+import NewChatbotButton from "@/components/new-chatbot-button"
+
+export default async function Page() {
+  const { userId } = auth()
+  if (!userId) {
+    return null
+  }
+
+  const userChatbots = await db
+    .select()
+    .from(chatbots)
+    .where(eq(chatbots.userId, userId))
+
+  // const subscribed = await getSubscription({ userId })
+
   return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <h1>Dashboard</h1>
+    <div>
+      <div className="flex items-center justify-center gap-3">
+        <h1 className="text-3xl font-bold text-center my-4">Your Chatbots</h1>
+        <NewChatbotButton />
+      </div>
+      <ChatbotList chatbots={userChatbots} subscribed={false} />
     </div>
   )
 }
