@@ -20,7 +20,7 @@ type Props = {
 const ChatbotList = (props: Props) => {
   return (
     <div>
-      <ul className="grid grid-cols-1 md:grid-cols-3 m-5 p-4 gap-4">
+      <ul className="grid grid-cols-1 md:grid-cols-3 m-5 gap-4 max-w-5xl mx-auto">
         {props.chatbots.map((chatbot: Chatbot) => (
           <li key={chatbot.id}>
             <Card className="max-w-[350px] flex flex-col h-full">
