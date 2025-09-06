@@ -3,7 +3,7 @@ import { eq } from "drizzle-orm"
 import { chatbots as dbChatbots } from "@/db/schema"
 import Link from "next/link"
 import { Globe, ChevronLeft, Code } from "lucide-react"
-// import Table from "@/components/table";
+import ChatbotInfo from "@/components/chatbot-info"
 
 export default async function Page({
   params,
@@ -16,32 +16,24 @@ export default async function Page({
 
   const chatbots = await db.query.chatbots.findMany({
     where: eq(dbChatbots.id, parseInt(chatbotId)),
-    // with: {
-    //   feedbacks: true,
-    // },
   })
 
   const chatbot = chatbots[0]
 
   return (
-    <div>
-      <div>
-        <Link
-          href="/dashboard"
-          className="flex items-center text-indigo-700 mb-5 w-fit"
-        >
-          <ChevronLeft className="h-5 w-5 mr-1" />
-          <span className="text-lg">Back to projects</span>
-        </Link>
-      </div>
+    <div className="max-w-5xl mx-auto w-full px-5 pt-5">
+      {/* Back button  */}
+      <Link
+        href="/dashboard"
+        className="flex items-center text-zinc-700 mb-5 w-fit px-2 py-1 rounded bg-gray-100 hover:bg-gray-200 transition border border-black text-sm"
+      >
+        <ChevronLeft className="h-5 w-5 mr-1" />
+        <span>Back to projects</span>
+      </Link>
+      {/* Info about the chatbot */}
       <div className="flex justify-between items-start">
-        <div className="proj-info">
-          <h1 className="text-3xl font-bold mb-3">{chatbot.name}</h1>
-          <h2 className="text-primary-background text-xl mb-2">
-            {chatbot.description}
-          </h2>
-        </div>
-        <div className="flex flex-col">
+        <ChatbotInfo chatbot={chatbot} />
+        {/* <div className="flex flex-col">
           {chatbot.url ? (
             <Link
               href={chatbot.url}
@@ -58,7 +50,7 @@ export default async function Page({
             <Code className="h-5 w-5 mr-1" />
             <span className="text-lg">Embed Code</span>
           </Link>
-        </div>
+        </div> */}
       </div>
       {/* <div>
         <Table data={project.feedbacks} />

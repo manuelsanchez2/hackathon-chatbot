@@ -1,5 +1,5 @@
 import { InferSelectModel } from "drizzle-orm"
-import { chatbots } from "@/db/schema"
+import { Chatbot, chatbots } from "@/db/schema"
 import {
   Card,
   CardDescription,
@@ -9,8 +9,6 @@ import {
 } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
-
-type Chatbot = InferSelectModel<typeof chatbots>
 
 type Props = {
   chatbots: Chatbot[]
