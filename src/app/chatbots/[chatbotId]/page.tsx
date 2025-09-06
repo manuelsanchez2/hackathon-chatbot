@@ -5,17 +5,17 @@ import Link from "next/link"
 import { Globe, ChevronLeft, Code } from "lucide-react"
 // import Table from "@/components/table";
 
-const page = async ({
+export default async function Page({
   params,
 }: {
-  params: {
-    chatbotId: string
-  }
-}) => {
-  if (!params.chatbotId) return <div>Invalid Chatbot ID</div>
+  params: Promise<{ chatbotId: string }>
+}) {
+  const { chatbotId } = await params
+
+  if (!chatbotId) return <div>Invalid Chatbot ID</div>
 
   const chatbots = await db.query.chatbots.findMany({
-    where: eq(dbChatbots.id, parseInt(params.chatbotId)),
+    where: eq(dbChatbots.id, parseInt(chatbotId)),
     // with: {
     //   feedbacks: true,
     // },
@@ -52,7 +52,7 @@ const page = async ({
             </Link>
           ) : null}
           <Link
-            href={`/chatbots/${params.chatbotId}/instructions`}
+            href={`/chatbots/${chatbotId}/instructions`}
             className="underline text-indigo-700 flex items-center mt-2"
           >
             <Code className="h-5 w-5 mr-1" />
@@ -66,5 +66,3 @@ const page = async ({
     </div>
   )
 }
-
-export default page
